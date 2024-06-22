@@ -37,11 +37,54 @@ Rayfield:Notify({
 
 
 
---Tabs 
-local Tab = Window:CreateTab("Rooms Low Detailed", 4483362458)
+--Tabs
+local IR = Window:CreateTab("Interminable Rooms", 4483362458)
+local RLD = Window:CreateTab("Rooms Low Detailed", 4483362458)
 
 
-local Toggle = Tab:CreateToggle({
+local IREntitiesFolder = Workspace:WaitForChild("Entities")
+
+
+local Toggle = IR:CreateToggle({
+    Name = "Notify Entities Spawned",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        if Value then
+            connection = IREntitiesFolder.ChildAdded:Connect(function(entity)
+                Rayfield:Notify({
+                   Title = entity.Name,
+                   Content = "Has spawned.",
+                   Duration = 5,
+                   Image = 4483362458,
+                })
+            end)
+        else
+            connection:Disconnect()
+        end
+    end,
+})
+
+local Toggle = IR:CreateToggle({
+    Name = "Notify Entities Deleted",
+    CurrentValue = false,
+    Flag = "Toggle2",
+    Callback = function(Value)
+        if Value then
+            connection = IREntitiesFolder.ChildRemoved:Connect(function(entity)
+                Rayfield:Notify({
+                   Title = entity.Name,
+                   Content = "Has deleted.",
+                   Duration = 5,
+                   Image = 4483362458,
+                })
+            end)
+        else
+            connection:Disconnect()
+        end
+    end,
+})
+local Toggle = RLD:CreateToggle({
     Name = "Notify Entities Spawned",
     CurrentValue = false,
     Flag = "Toggle1",
@@ -61,7 +104,7 @@ local Toggle = Tab:CreateToggle({
     end,
 })
 
-local Toggle = Tab:CreateToggle({
+local Toggle = RLD:CreateToggle({
     Name = "Notify Entities Deleted",
     CurrentValue = false,
     Flag = "Toggle2",
