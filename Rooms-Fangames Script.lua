@@ -1,4 +1,4 @@
-local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/shlexware/Rayfield/main/source'))()
+local Rayfield = loadstring(game:HttpGet('https://raw.githubusercontent.com/SiriusSoftwareLtd/Rayfield/main/source.lua'))()
 
 --Window
 local Window = Rayfield:CreateWindow({
@@ -39,19 +39,20 @@ Rayfield:Notify({
 
 --Tabs
 local IR = Window:CreateTab("Interminable Rooms", 4483362458)
-local RLD = Window:CreateTab("Rooms Low Detailed", 4483362458)
+local RLD = Window:CreateTab("Rooms:Low Detailed", 4483362458)
+local RFF = Window:CreateTab("Rooms:Found Footage", 4483362458)
 
 
-local IREntitiesFolder = Workspace:WaitForChild("Entities")
 
-
+local Section = IR:CreateSection("Interminable Rooms")
+local Section = IR:CreateSection("if you are not in this game then you can't use them.It will show Callback Error.Whatever you don't see it show the Callback Error")
 local Toggle = IR:CreateToggle({
     Name = "Notify Entities Spawned",
     CurrentValue = false,
     Flag = "Toggle1",
     Callback = function(Value)
         if Value then
-            connection = IREntitiesFolder.ChildAdded:Connect(function(entity)
+            connection = Workspace:WaitForChild("Entities").ChildAdded:Connect(function(entity)
                 Rayfield:Notify({
                    Title = entity.Name,
                    Content = "Has spawned.",
@@ -71,7 +72,7 @@ local Toggle = IR:CreateToggle({
     Flag = "Toggle2",
     Callback = function(Value)
         if Value then
-            connection = IREntitiesFolder.ChildRemoved:Connect(function(entity)
+            connection = Workspace:WaitForChild("Entities").ChildRemoved:Connect(function(entity)
                 Rayfield:Notify({
                    Title = entity.Name,
                    Content = "Has deleted.",
@@ -84,6 +85,8 @@ local Toggle = IR:CreateToggle({
         end
     end,
 })
+local Section = RLD:CreateSection("Rooms Low Detailed")
+local Section = RLD:CreateSection("if you are not in this game then you can't use them.It will show Callback Error.Whatever you don't see it show the Callback Error")
 local Toggle = RLD:CreateToggle({
     Name = "Notify Entities Spawned",
     CurrentValue = false,
@@ -123,3 +126,67 @@ local Toggle = RLD:CreateToggle({
         end
     end,
 })
+local Section = RFF:CreateSection("Rooms:Found Footage")
+local Section = RFF:CreateSection("if you are not in this game then you can't use them.It will show Callback Error.Whatever you don't see it show the Callback Error")
+local Toggle = RFF:CreateToggle({
+    Name = "Notify Entities Spawned",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        if Value then
+            connection = Game.Workspace.SpawnedEntities.ChildAdded:Connect(function(entity)
+                Rayfield:Notify({
+                   Title = entity.Name,
+                   Content = "Has spawned.",
+                   Duration = 5,
+                   Image = 4483362458,
+                })
+            end)
+        else
+            connection:Disconnect()
+        end
+    end,
+})
+
+local Toggle = RFF:CreateToggle({
+    Name = "Notify Entities Deleted",
+    CurrentValue = false,
+    Flag = "Toggle2",
+    Callback = function(Value)
+        if Value then
+            connection = Game.Workspace.SpawnedEntities.ChildRemoved:Connect(function(entity)
+                Rayfield:Notify({
+                   Title = entity.Name,
+                   Content = "Has deleted.",
+                   Duration = 5,
+                   Image = 4483362458,
+                })
+            end)
+        else
+            connection:Disconnect()
+        end
+    end,
+})
+
+local Button = RFF:CreateButton({
+    Name = "No footsteps sound",
+    Callback = function()
+    game.Players.LocalPlayer.PlayerScripts.RbxCharacterSounds.Disable = true
+    end,
+ })
+ local Button = RFF:CreateButton({
+    Name = "Not Wear NVCS-3000",
+    Callback = function()
+        game.Players.LocalPlayer.PlayerGui.GameOverlay.Enabled = false
+        game.Players.LocalPlayer.PlayerGui.GameOverlay.OverlayMainScript.Idle.Playing = false
+        game.Players.LocalPlayer.PlayerGui.GameOverlay.OverlayMainScript.Disable.Playing = true
+    end,
+ })
+ local Button = RFF:CreateButton({
+    Name = "Wear NVCS-3000",
+    Callback = function()
+        game.Players.LocalPlayer.PlayerGui.GameOverlay.Enabled = true
+        game.Players.LocalPlayer.PlayerGui.GameOverlay.OverlayMainScript.Idle.Playing = true
+        game.Players.LocalPlayer.PlayerGui.GameOverlay.OverlayMainScript.Use.Playing = true
+    end,
+ })
