@@ -41,6 +41,7 @@ Rayfield:Notify({
 local IR = Window:CreateTab("Interminable Rooms", 4483362458)
 local RLD = Window:CreateTab("Rooms:Low Detailed", 4483362458)
 local RFF = Window:CreateTab("Rooms:Found Footage", 4483362458)
+local LR = Window:CreateTab("Liminal Rooms", 4483362458)
 
 
 
@@ -190,3 +191,143 @@ local Button = RFF:CreateButton({
         game.Players.LocalPlayer.PlayerGui.GameOverlay.OverlayMainScript.Use.Playing = true
     end,
  })
+ local Section = LR:CreateSection("Liminal Rooms")
+local Section = LR:CreateSection("if you are not in this game then you can't use them.It will show Callback Error.Whatever you don't see it show the Callback Error")
+local Toggle = LR:CreateToggle({
+    Name = "Notify Entities Spawned",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        if Value then
+            connection = Game.Workspace.ActiveEnemies.ChildAdded:Connect(function(entity)
+                Rayfield:Notify({
+                   Title = entity.Name,
+                   Content = "Has spawned.",
+                   Duration = 5,
+                   Image = 4483362458,
+                })
+            end)
+        else
+            connection:Disconnect()
+        end
+    end,
+})
+
+local Toggle = LR:CreateToggle({
+    Name = "Notify Entities Deleted",
+    CurrentValue = false,
+    Flag = "Toggle2",
+    Callback = function(Value)
+        if Value then
+            connection = Game.Workspace.ActiveEnemies.ChildRemoved:Connect(function(entity)
+                Rayfield:Notify({
+                   Title = entity.Name,
+                   Content = "Has deleted.",
+                   Duration = 5,
+                   Image = 4483362458,
+                })
+            end)
+        else
+            connection:Disconnect()
+        end
+    end,
+})
+local Toggle = LR:CreateToggle({
+    Name = "Notify Minions Spawned",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        if Value then
+            connection = Game.Workspace.ActiveMinions.ChildAdded:Connect(function(minions)
+                Rayfield:Notify({
+                   Title = minions.Name,
+                   Content = "Has spawned.",
+                   Duration = 5,
+                   Image = 4483362458,
+                })
+            end)
+        else
+            connection:Disconnect()
+        end
+    end,
+})
+
+local Toggle = LR:CreateToggle({
+    Name = "Notify Minions Deleted",
+    CurrentValue = false,
+    Flag = "Toggle2",
+    Callback = function(Value)
+        if Value then
+            connection = Game.Workspace.ActiveMinions.ChildRemoved:Connect(function(minions)
+                Rayfield:Notify({
+                   Title = minions.Name,
+                   Content = "Has deleted.",
+                   Duration = 5,
+                   Image = 4483362458,
+                })
+            end)
+        else
+            connection:Disconnect()
+        end
+    end,
+})
+local Button = LR:CreateButton({
+    Name = "Teleport to A Section",
+    Callback = function()
+    local TeleportService = game:GetService("TeleportService")
+    local gameId = 13415267785
+    local success, errorMessage = pcall(function()
+    TeleportService:Teleport(gameId, game.Players.LocalPlayer)
+    if success then
+        print("Teleport to Game ID：" .. gameId) 
+    else
+        warn("Teleport failure：" .. errorMessage)
+    end
+    end)
+    end,
+ })
+ local Button = LR:CreateButton({
+    Name = "Teleport to B Section",
+    Callback = function()
+    local TeleportService = game:GetService("TeleportService")
+    local gameId = 13740983392
+    local success, errorMessage = pcall(function()
+    TeleportService:Teleport(gameId, game.Players.LocalPlayer)
+    if success then
+        print("Teleport to Game ID：" .. gameId) 
+    else
+        warn("Teleport failure：" .. errorMessage)
+    end
+    end)
+    end,
+ })
+local Button = LR:CreateButton({
+    Name = "Teleport to C Section",
+    Callback = function()
+    local TeleportService = game:GetService("TeleportService")
+    local gameId = 13850926454
+    local success, errorMessage = pcall(function()
+    TeleportService:Teleport(gameId, game.Players.LocalPlayer)
+    if success then
+        print("Teleport to Game ID：" .. gameId) 
+    else
+        warn("Teleport failure：" .. errorMessage)
+    end
+    end)
+    end,
+ })
+local Button = LR:CreateButton({
+    Name = "Teleport to U Section",
+    Callback = function()
+    local TeleportService = game:GetService("TeleportService")
+    local gameId = 13651436803
+    local success, errorMessage = pcall(function()
+    TeleportService:Teleport(gameId, game.Players.LocalPlayer)
+    if success then
+        print("Teleport to Game ID：" .. gameId) 
+    else
+        warn("Teleport failure：" .. errorMessage)
+    end
+    end)
+    end,
+})
